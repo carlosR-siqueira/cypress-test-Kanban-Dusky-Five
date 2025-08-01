@@ -9,7 +9,19 @@
     "test:headed": "cypress run --headed",
     "test:chrome": "cypress run --browser chrome",
     "test:firefox": "cypress run --browser firefox",
-    "test:edge": "cypress run --browser edge"
+    "test:edge": "cypress run --browser edge",
+    "test:record": "cypress run --record",
+    "test:parallel": "cypress run --parallel",
+    "test:spec": "cypress run --spec 'cypress/e2e/**/*.cy.js'",
+    "test:loading": "cypress run --spec 'cypress/e2e/01-loading.cy.js'",
+    "test:structure": "cypress run --spec 'cypress/e2e/02-kanban-structure.cy.js'",
+    "test:functionality": "cypress run --spec 'cypress/e2e/03-functionality.cy.js'",
+    "test:ui": "cypress run --spec 'cypress/e2e/04-ui-ux.cy.js'",
+    "test:accessibility": "cypress run --spec 'cypress/e2e/05-accessibility.cy.js'",
+    "test:report": "cypress run --reporter mochawesome",
+    "test:ci": "cypress run --headless --browser chrome --record false",
+    "test:debug": "cypress run --headed --browser chrome --no-exit",
+    "test:all": "npm run test:loading && npm run test:structure && npm run test:functionality && npm run test:ui && npm run test:accessibility"
   },
   "keywords": [
     "cypress",
@@ -18,7 +30,7 @@
     "kanban",
     "frontend"
   ],
-  "author": "Teste Vaga Tester",
+  "author": "Carlos Siqueira",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.17.0"
