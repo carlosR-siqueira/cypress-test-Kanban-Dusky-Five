@@ -1,0 +1,29 @@
+{
+  "name": "teste-vaga-tester",
+  "version": "1.0.0",
+  "description": "Análise Frontend e Testes E2E para Kanban App",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:headed": "cypress run --headed",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:edge": "cypress run --browser edge"
+  },
+  "keywords": [
+    "cypress",
+    "testing",
+    "e2e",
+    "kanban",
+    "frontend"
+  ],
+  "author": "Teste Vaga Tester",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.17.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
