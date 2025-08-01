@@ -5,7 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch: # Permite executar manualmente
+  workflow_dispatch:
 
 jobs:
   cypress-run:
@@ -26,15 +26,8 @@ jobs:
       run: npm ci
       
     - name: Run Cypress tests
-      uses: cypress-io/github-action@v6
-      with:
-        browser: chrome
-        headless: true
-        record: false
-        config-file: cypress.config.js
-        wait-on: 'http://localhost:3000'
-        wait-on-timeout: 120
-        
+      run: npx cypress run --browser chrome
+      
     - name: Upload screenshots
       uses: actions/upload-artifact@v4
       if: failure()
@@ -63,7 +56,7 @@ jobs:
         if [ ${{ job.status }} == 'success' ]; then
           echo "✅ **Status**: All tests passed" >> $GITHUB_STEP_SUMMARY
         else
-          echo "❌ **Status**: Some tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "❌ **Status**: Some tests failed (expected due to documented issues)" >> $GITHUB_STEP_SUMMARY
         fi
         
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -73,6 +66,10 @@ jobs:
         echo "- 03-functionality.cy.js" >> $GITHUB_STEP_SUMMARY
         echo "- 04-ui-ux.cy.js" >> $GITHUB_STEP_SUMMARY
         echo "- 05-accessibility.cy.js" >> $GITHUB_STEP_SUMMARY
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Site Tested:" >> $GITHUB_STEP_SUMMARY
+        echo "- https://kanban-dusky-five.vercel.app/" >> $GITHUB_STEP_SUMMARY
         
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Artifacts:" >> $GITHUB_STEP_SUMMARY
@@ -95,7 +92,6 @@ jobs:
         
         ## Test Results
         - **Status**: ${{ job.status }}
-        - **Duration**: ${{ steps.cypress-run.outputs.duration }}
         
         ## Test Files
         1. **01-loading.cy.js** - Testes de carregamento da página
@@ -106,7 +102,7 @@ jobs:
         
         ## Environment
         - **Site Tested**: https://kanban-dusky-five.vercel.app/
-        - **Browser**: Chrome (headless)
+        - **Browser**: Chrome
         - **Cypress Version**: $(npx cypress --version)
         
         ## Artifacts Generated
@@ -115,6 +111,7 @@ jobs:
         
         ## Notes
         - Tests are executed against the live site
+        - Failures are expected due to documented issues
         - All artifacts are uploaded to GitHub Actions
         - Detailed logs available in the Actions tab
         EOF
